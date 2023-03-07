@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\I18n\Time;
+
 /**
  * Borrows Controller
  *
@@ -50,18 +52,8 @@ class BorrowsController extends AppController
     public function add()
     {
         $borrow = $this->Borrows->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $borrow = $this->Borrows->patchEntity($borrow, $this->request->getData());
-            if ($this->Borrows->save($borrow)) {
-                $this->Flash->success(__('The borrow has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The borrow could not be saved. Please, try again.'));
-        }
-        $readers = $this->Borrows->Readers->find('list', ['limit' => 200])->all();
-        $books = $this->Borrows->Books->find('list', ['limit' => 200])->all();
-        $this->set(compact('borrow', 'readers', 'books'));
+        $this->Borrows->save($borrow);
+        return $this->redirect(['action' => 'edit', $borrow->id]);
     }
 
     /**
@@ -80,7 +72,6 @@ class BorrowsController extends AppController
             $borrow = $this->Borrows->patchEntity($borrow, $this->request->getData());
             if ($this->Borrows->save($borrow)) {
                 $this->Flash->success(__('The borrow has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The borrow could not be saved. Please, try again.'));

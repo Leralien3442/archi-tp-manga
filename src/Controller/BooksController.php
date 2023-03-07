@@ -78,7 +78,9 @@ class BooksController extends AppController
             'contain' => ['Types'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $book = $this->Books->patchEntity($book, $this->request->getData());
+            $bookData = $this->request->getData();
+            $bookData->authors->id = $book->authors->id + 1;
+            $book = $this->Books->patchEntity($book, $bookData);
             if ($this->Books->save($book)) {
                 $this->Flash->success(__('The book has been saved.'));
 

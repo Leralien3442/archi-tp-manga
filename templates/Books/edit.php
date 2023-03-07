@@ -31,8 +31,8 @@
                     echo $this->Form->control('summary');
                     echo $this->Form->control('opinion');
                     echo $this->Form->control('illustration', ['type' => 'file']);
-                    echo $this->Form->control('author_id', ['options' => $authors, 'empty' => true]);
-                    echo $this->Form->control('types._ids', ['options' => $types]);
+                    echo $this->Form->input('author.id', ["type" => "select", 'options' => $authors, 'empty' => true]);
+                    echo $this->Form->control('types._ids', ['options' => $types, 'empty' => true]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

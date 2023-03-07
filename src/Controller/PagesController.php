@@ -45,6 +45,7 @@ class PagesController extends AppController
      */
     public function display(string ...$path): ?Response
     {
+        return $this->redirect(["controller" => "books", "action" => "index"]);
         if (!$path) {
             return $this->redirect('/');
         }
