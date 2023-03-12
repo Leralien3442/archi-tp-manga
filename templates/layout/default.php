@@ -26,6 +26,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon') ?>
+    <?= $this->Html->link("Books", array('controller' => 'Books'), array( 'class' => 'button'))?>
+    <?= $this->Html->link("Borrows", array('controller' => 'Borrows'), array( 'class' => 'button'))?>
+    <?= $this->Html->link("Authors", array('controller' => 'Authors'), array( 'class' => 'button'))?>
+    <?= $this->Html->link("Readers", array('controller' => 'Readers'), array( 'class' => 'button'))?>
+    <?= $this->Html->link("Users", array('controller' => 'Users'), array( 'class' => 'button'))?>
+
     <?= $this->Html->link("Logout", array('controller' => 'Users','action'=> 'logout'), array( 'class' => 'button'))?>
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">

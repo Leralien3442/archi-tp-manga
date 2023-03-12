@@ -53,6 +53,7 @@ class BorrowsController extends AppController
     {
         $borrow = $this->Borrows->newEmptyEntity();
         $this->Borrows->save($borrow);
+        dd($borrow);
         return $this->redirect(['action' => 'edit', $borrow->id]);
     }
 
@@ -68,7 +69,17 @@ class BorrowsController extends AppController
         $borrow = $this->Borrows->get($id, [
             'contain' => [],
         ]);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
+            if($this->request->getData()['end_date'] > Time::now()){
+                $book = $this->Borrows->Books->get($this->request->getData()['book_id']);
+                if($book->borrowed){
+                    $this->Flash->error(__('The borrow could not be saved. The book is already borrowed right now.'));
+                }
+                else{
+                    $this->Borrows->Books->patchEntity($book, array("borrowed" => true));
+                }
+            }
             $borrow = $this->Borrows->patchEntity($borrow, $this->request->getData());
             if ($this->Borrows->save($borrow)) {
                 $this->Flash->success(__('The borrow has been saved.'));

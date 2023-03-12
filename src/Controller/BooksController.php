@@ -79,8 +79,15 @@ class BooksController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $bookData = $this->request->getData();
-            $bookData->authors->id = $book->authors->id + 1;
             $book = $this->Books->patchEntity($book, $bookData);
+
+            if(is_numeric($bookData['author']['id'])){
+                $bookData['author']['id'] = $bookData['author']['id'] + 1;
+                $this->Books->patchEntity($book, array('author_id' => $bookData['author']['id']));
+            }
+            else{
+                $this->Books->patchEntity($book, array('author_id' => null));
+            }
             if ($this->Books->save($book)) {
                 $this->Flash->success(__('The book has been saved.'));
 
