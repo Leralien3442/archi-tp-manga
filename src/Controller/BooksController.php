@@ -123,4 +123,8 @@ class BooksController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function tojson(){
+        return $this->response->withType("application/json")->withStringBody(json_encode($this->Books->find("all")));
+    }
 }

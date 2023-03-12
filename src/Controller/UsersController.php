@@ -104,6 +104,7 @@ class UsersController extends AppController
     }
     public function login()
     {
+        $this->viewBuilder()->setLayout("login");
         $result = $this->Authentication->getResult();
         // If the user is logged in send them away.
         if ($result->isValid()) {
@@ -124,5 +125,9 @@ class UsersController extends AppController
     {
         $this->Authentication->logout();
         return $this->redirect(['controller' => 'Users', 'action' => 'login']);
+    }
+
+    public function tojson(){
+        return $this->response->withType("application/json")->withStringBody(json_encode($this->Users->find("all")));
     }
 }
