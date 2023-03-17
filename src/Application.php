@@ -73,6 +73,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 
         // Load more plugins here
         $this->addPlugin('Josegonzalez/Upload');
+        $this->addPlugin('Migrations');
     }
 
     /**
